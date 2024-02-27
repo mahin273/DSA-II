@@ -1,0 +1,1 @@
+cout << "ques " << questions[i].index << " " << fraction*100 << "% done -- " << questions[i].marks * fraction << " marks\n";

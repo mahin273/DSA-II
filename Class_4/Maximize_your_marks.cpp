@@ -1,62 +1,60 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <algorithm>
+#include <sstream>
 using namespace std;
 
-struct Question
-{
-    int id;
-    double marks;
-    double time;
+struct Question {
+    int marks;
+    int time;
+    int index;
     double ratio;
 };
 
-bool compare(Question a, Question b)
-{
+bool compare(Question a, Question b) {
     return a.ratio > b.ratio;
 }
 
-int main()
-{
-    int N;
-    double T;
-    cin >> N >> T;
-    vector<Question> questions(N);
-    for (int i = 0; i < N; i++)
-    {
-        questions[i].id = i + 1;
-        cin >> questions[i].marks >> questions[i].time;
-        questions[i].ratio = questions[i].marks / questions[i].time;
-    }
-
-    sort(questions.begin(), questions.end(), compare);
-
+void printMaxMarks(vector<Question> questions, int T, string scenario, bool printBreakdown) {
     double totalMarks = 0;
-    vector<int> answeredQuestions;
-    for (int i = 0; i < N && T > 0; i++)
-    {
-        if (questions[i].time <= T)
-        {
+    stringstream breakdown;
+    for (int i = 0; i < questions.size(); i++) {
+        if (T == 0)
+            break;
+        if (questions[i].time <= T) {
             T -= questions[i].time;
             totalMarks += questions[i].marks;
-            answeredQuestions.push_back(questions[i].id);
-        }
-        else
-        {
-            double fraction = T / questions[i].time;
+            if (printBreakdown) {
+                breakdown << "ques " << questions[i].index << " 100% done -- " << questions[i].marks << " marks\n";
+            }
+        } else {
+            double fraction = (double)T / questions[i].time;
             totalMarks += questions[i].marks * fraction;
-            answeredQuestions.push_back(questions[i].id);
+            if (printBreakdown) {
+                breakdown << "ques " << questions[i].index << " " << fraction*100 << "% done -- " << questions[i].marks * fraction << " marks\n";
+            }
             T = 0;
         }
     }
-
-    cout << "marks " << totalMarks << endl;
-    cout << "Questions you have to answer: ";
-    for (int id : answeredQuestions)
-    {
-        cout << id << " ";
+    cout << "Maximum " << totalMarks << " marks " << scenario << "\n";
+    if (printBreakdown) {
+        cout << breakdown.str();
     }
-    cout << endl;
+}
+
+int main() {
+    int M, T, N;
+    cin >> M >> T >> N;
+    vector<Question> questions(N);
+    for (int i = 0; i < N; i++) {
+        cin >> questions[i].marks >> questions[i].time;
+        questions[i].index = i + 1;
+        questions[i].ratio = (double)questions[i].marks / questions[i].time;
+    }
+    sort(questions.begin(), questions.end(), compare);
+
+    printMaxMarks(questions, T, "answering alone", true);
+    printMaxMarks(questions, 2*T, "answering with a friend", false);
 
     return 0;
 }
