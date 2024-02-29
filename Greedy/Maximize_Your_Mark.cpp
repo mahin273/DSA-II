@@ -12,6 +12,11 @@ struct Question
     int index;
 };
 
+bool compareQuestions(const Question &a, const Question &b)
+{
+    return a.ratio > b.ratio;
+}
+
 vector<Question> max_marks(int N, int T, vector<int> &m, vector<int> &t)
 {
     vector<Question> questions(N);
@@ -20,8 +25,7 @@ vector<Question> max_marks(int N, int T, vector<int> &m, vector<int> &t)
         questions[i] = {static_cast<double>(m[i]) / t[i], m[i], t[i], i + 1};
     }
 
-    sort(questions.begin(), questions.end(), [](const Question &a, const Question &b)
-         { return a.ratio > b.ratio; });
+    sort(questions.begin(), questions.end(), compareQuestions);
 
     vector<Question> answered_questions;
     for (Question &q : questions)
