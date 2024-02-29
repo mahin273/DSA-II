@@ -12,4 +12,6 @@ int index;
 double ratio;
 };
 
-vector<Ques>max_maks
+bool compare(){
+    
+}

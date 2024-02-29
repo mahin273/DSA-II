@@ -67,19 +67,19 @@ int main()
     vector<Question> group = max_marks_group(N, T, m, t);
 
     int solo_marks = 0, group_marks = 0;
-    for (Question &q : solo)
+    for (int i = 0; i < solo.size(); ++i)
     {
-        solo_marks += q.marks;
+        solo_marks += solo[i].marks;
     }
-    for (Question &q : group)
+    for (int i = 0; i < group.size(); ++i)
     {
-        group_marks += q.marks;
+        group_marks += group[i].marks;
     }
 
     cout << "Maximum " << solo_marks << " marks answering alone\n";
-    for (Question &q : solo)
+    for (int i = 0; i < solo.size(); ++i)
     {
-        cout << "ques " << q.index << " " << q.ratio << "% done -- " << q.marks << " marks\n";
+        cout << "ques " << solo[i].index << " " << solo[i].ratio << "% done -- " << solo[i].marks << " marks\n";
     }
 
     cout << "Maximum " << group_marks << " marks answering with a friend\n";
