@@ -11,10 +11,15 @@ struct Event
     int end;
 };
 
+// Comparison function
+bool compareEvents(const Event &a, const Event &b)
+{
+    return a.end < b.end;
+}
+
 vector<char> max_events(int N, int X, vector<Event> &events)
 {
-    sort(events.begin(), events.end(), [](const Event &a, const Event &b)
-         { return a.end < b.end; });
+    sort(events.begin(), events.end(), compareEvents);
 
     vector<char> chosen_events;
     int last_end = -1;
@@ -45,9 +50,9 @@ int main()
     vector<char> chosen_events = max_events(N, X, events);
 
     cout << "Chosen clubs: \n";
-    for (char id : chosen_events)
+    for (int i = 0; i < chosen_events.size(); ++i)
     {
-        cout << id << "\n";
+        cout << chosen_events[i] << "\n";
     }
 
     return 0;
