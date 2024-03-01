@@ -22,7 +22,8 @@ vector<Question> max_marks(int N, int T, vector<int> &m, vector<int> &t)
     vector<Question> questions(N);
     for (int i = 0; i < N; ++i)
     {
-        questions[i] = {static_cast<double>(m[i]) / t[i], m[i], t[i], i + 1};
+           double ratio = static_cast<double>(m[i]) / t[i];
+           questions[i] = {ratio, m[i], t[i], i + 1};
     }
 
     sort(questions.begin(), questions.end(), compareQuestions);
