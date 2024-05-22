@@ -19,10 +19,23 @@ void make_change(int N)
 
     total = quarters + dimes + nickels + pennies;
 
-    cout << "25 cents --- " << quarters << "\n";
-    cout << "10 cents --- " << dimes << "\n";
-    cout << "5 cents --- " << nickels << "\n";
-    cout << "1 cents --- " << pennies << "\n";
+    if (quarters > 0)
+    {
+        cout << "25 cents --- " << quarters << "\n";
+    }
+    if (dimes > 0)
+    {
+        cout << "10 cents --- " << dimes << "\n";
+    }
+    if (nickels > 0)
+    {
+        cout << "5 cents --- " << nickels << "\n";
+    }
+    if (pennies > 0)
+    {
+        cout << "1 cents --- " << pennies << "\n";
+    }
+
     cout << "Total " << total << " coins\n";
 }
 
@@ -35,3 +48,5 @@ int main()
 
     return 0;
 }
+
+// All ok but changing variable name would be a good choice

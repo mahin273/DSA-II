@@ -1,52 +1,60 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-vector<long long>factorials;
+vector<long long> factorials;
 
-void precompute(){
+void precompute()
+{
     factorials.push_back(1);
-    for (int i = 0; i < 20; i++)
+    long long k = 1;
+    for (int i = 1; i <= 20; i++)
     {
-        factorials.push_back(factorials.back()*i);
+        factorials.push_back(i * k);
+        k = factorials[i];
     }
-    
 }
-void solve(int caseNum,long long n){
-    vector<int>used;
-    for (int i=factorials.size()-1;i>=0;i--)
+
+void solve(int caseNum, long long n)
+{
+    vector<int> used;
+    for (int i = factorials.size() - 1; i >= 0; i--)
     {
-        if(factorials[i]<=n){
-            n-+factorials[i];
+        if (factorials[i] <= n)
+        {
+            n -= factorials[i];
             used.push_back(i);
         }
     }
-    cout<<"Case "<<caseNum<<": ";
-    if(n!=0){
-        cout<<"Impossible"<<endl;
-    }else{
-        for(int i  = used.size();i>=0;i--){
-            cout<<used[i]<<"!";
-            if(i!=0){
-                cout<<"+";
-            }
+    cout << "Case " << caseNum << ": ";
+    if (n == 0)
+    {
+        for (int i = used.size() - 1; i > 0; i--)
+        {
+            cout << used[i] << "!+";
         }
-        cout<<endl;
-
+        cout << used[0] << "!\n";
     }
-    
+    else
+    {
+        cout << "impossible\n";
+    }
 }
 
-int main(){
+int main()
+{
+    precompute();
     int T;
-    cin>>T;
-    for (int i = 0; i <=T; i++)
+    cin >> T;
+    for (int i = 1; i <= T; i++)
     {
-        cin>>n;
-        solve(i,n);
+        long long n;
+        cin >> n;
+        solve(i, n);
     }
 
     return 0;
-    
 }
+
+// litte bit problem
